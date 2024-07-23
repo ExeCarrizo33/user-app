@@ -1,1 +1,12 @@
-<h3>{{title}}</h3>
+<div class="container my-4">
+  <h3>{{ title }}</h3>
+
+  <div class="row">
+    <div class="col">
+      <user-form (newUserEventEmitter)="addUser($event)"/>
+    </div>
+    <div class="col">
+      <user [users]="users" />
+    </div>
+  </div>
+</div>
