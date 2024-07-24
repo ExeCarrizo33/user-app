@@ -1,3 +1,10 @@
+ <h3>{{ title }}</h3>
+
+  <button class="btn btn-primary my-4" [routerLink]="['/users/create']" >
+    Crear Usuario
+  </button>
+
+
  @if (users.length == 0) {
       <div class="alert alert-warning">No hay registros en el sistema!</div>
       } @else {
@@ -9,6 +16,8 @@
             <th>lastname</th>
             <th>email</th>
             <th>username</th>
+            <th>remove</th>
+            <th>update</th>
           </tr>
         </thead>
         <tbody>
@@ -19,6 +28,16 @@
             <td>{{ user.lastname }}</td>
             <td>{{ user.email }}</td>
             <td>{{ user.username }}</td>
+            <td>
+              <button class="btn btn-danger btn-sm" (click)="onRemoveUser(user.id)">
+                remove
+              </button>
+            </td>
+            <td>
+              <button class="btn btn-info btn-sm" (click)="onSelectUser(user)">
+                  update
+              </button>
+            </td>
           </tr>
           }
         </tbody>

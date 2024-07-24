@@ -1,26 +1,33 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormsModule, NgForm } from '@angular/forms';
 import { User } from '../../models/user';
-import { CommonModule } from '@angular/common';
+import { SharingDataService } from '../../services/sharing-data.service';
 
 @Component({
   selector: 'user-form',
   standalone: true,
-  imports: [FormsModule, CommonModule],
-  templateUrl: './user-form.component.html'
+  imports: [FormsModule],
+  templateUrl: './user-form.component.html',
 })
 export class UserFormComponent {
+   user: User;
 
- user: User;
 
- @Output() newUserEventEmitter = new EventEmitter;
+  constructor(private sharingData: SharingDataService) {
+    this.user = new User();
+  }
 
- constructor() {
-  this.user = new User();
- }
+  onSubmit(userForm: NgForm) {
+    if (userForm.valid) {
+      this.sharingData.newUserEventEmitter.emit(this.user);
+      console.log(this.user);
+    }
+    userForm.reset();
+    userForm.resetForm();
+  }
 
- onSubmit(){
-  this.newUserEventEmitter.emit(this.user);
-  console.log(this.user);
- }
+  onClear(userForm: NgForm) {
+    userForm.resetForm();
+  }
+
 }
