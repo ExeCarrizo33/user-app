@@ -1,4 +1,4 @@
-import { Component, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { User } from '../../models/user';
 import { Router, RouterModule } from '@angular/router';
 import { UserService } from '../../services/user.service';
@@ -10,7 +10,7 @@ import { SharingDataService } from '../../services/sharing-data.service';
   imports: [RouterModule],
   templateUrl: './user.component.html',
 })
-export class UserComponent {
+export class UserComponent implements OnInit {
   title = 'Listado de usuarios!';
 
   users: User[] = [];
@@ -22,7 +22,10 @@ export class UserComponent {
   ) {
     if (this.router.getCurrentNavigation()?.extras.state) {
       this.users = this.router.getCurrentNavigation()?.extras.state!['users'];
-    } else {
+    }
+  }
+  ngOnInit(): void {
+    if (this.users == undefined || this.users.length == 0) {
       this.service.findAll().subscribe((users) => (this.users = users));
     }
   }
