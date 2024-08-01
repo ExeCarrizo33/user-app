@@ -11,19 +11,24 @@ import { SharingDataService } from '../../services/sharing-data.service';
   templateUrl: './auth.component.html',
 })
 export class AuthComponent {
-  titulo: string = 'Por favor Sign In!';
   user: User;
 
   constructor(private sharingData: SharingDataService) {
     this.user = new User();
   }
 
-   onSubmit(): void {
-    if (!this.user.username  || !this.user.password) {
-      Swal.fire('Error Login', 'Username o password vacías!', 'error');
-    }else {
-      this.sharingData.handlerLoginEventEmitter.emit({username: this.user.username,password: this.user.password});
+  onSubmit() {
+    if (!this.user.username || !this.user.password) {
+      Swal.fire(
+        'Error de validacion',
+        'Username y password requeridos!',
+        'error'
+      );
+    } else {
+      this.sharingData.handlerLoginEventEmitter.emit({
+        username: this.user.username,
+        password: this.user.password,
+      });
     }
-
   }
 }

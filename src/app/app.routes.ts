@@ -3,6 +3,7 @@ import { UserComponent } from './components/user/user.component';
 import { UserFormComponent } from './components/user-form/user-form.component';
 import { AuthComponent } from './components/auth/auth.component';
 import { authGuard } from './guards/auth.guard';
+import { ForbbidenComponent } from './components/forbbiden/forbbiden.component';
 
 export const routes: Routes = [
   {
@@ -21,15 +22,19 @@ export const routes: Routes = [
   {
     path: 'users/create',
     component: UserFormComponent,
-    canActivate: [authGuard]
+    canActivate: [authGuard],
   },
   {
     path: 'users/edit/:id',
     component: UserFormComponent,
-    canActivate: [authGuard]
+    canActivate: [authGuard],
   },
   {
     path: 'login',
     component: AuthComponent,
+  },
+  {
+    path: 'forbidden',
+    component: ForbbidenComponent,
   },
 ];

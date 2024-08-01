@@ -61,7 +61,7 @@ export class UserComponent implements OnInit {
     return this.authService.isAdmin();
   }
 
-  get authenticated() {
-    return this.authService.authenticated();
-  }
+  // get authenticated() {
+  //   return this.authService.authenticated();
+  // }
 }

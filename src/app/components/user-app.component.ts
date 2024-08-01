@@ -40,6 +40,7 @@ export class UserAppComponent implements OnInit {
     this.removeUser();
     this.findUserById();
     this.pageUserEvent();
+    this.handlerLogin();
   }
 
   handlerLogin(){
@@ -107,10 +108,10 @@ export class UserAppComponent implements OnInit {
         });
       } else {
         this.service.create(user).subscribe({
-          next: (userNew) =>{
+          next: userNew =>{
           this.users = [...this.users, { ...userNew }];
           this.router.navigate(['/users'], {
-            state: { users: this.users, paginator: this.paginator },
+            state: { users: this.users, paginator: this.paginator }
           });
            Swal.fire({
              title: 'Creado nuevo usuario!',
@@ -119,10 +120,12 @@ export class UserAppComponent implements OnInit {
            });
         },
         error: (err) => {
+          console.log(err.error)
+          console.log(err.status)
           if (err.status == 400) {
             this.sharingData.errorsUser.emit(err.error);
           }
-          },
+        },
       });
       }
 
