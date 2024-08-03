@@ -4,12 +4,13 @@ import { User } from '../../models/user';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { add, find, resetUser, update } from '../../store/users/users.actions';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'user-form',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './user-form.component.html',
 })
 export class UserFormComponent implements OnInit {
