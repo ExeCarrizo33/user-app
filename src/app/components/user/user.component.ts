@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../models/user';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { UserService } from '../../services/user.service';
-import { SharingDataService } from '../../services/sharing-data.service';
 import { PaginatorComponent } from '../paginator/paginator.component';
 import { AuthService } from '../../services/auth.service';
 import { Store } from '@ngrx/store';
@@ -22,18 +20,18 @@ export class UserComponent implements OnInit {
   users: User[] = [];
 
   paginator: any = {};
+  loading:boolean = true;
 
   constructor(
     private store: Store<{ users: any }>,
     private router: Router,
-    private service: UserService,
-    private sharingData: SharingDataService,
     private route: ActivatedRoute,
     private authService: AuthService
   ) {
     this.store.select('users').subscribe((state) => {
       this.users = state.users;
       this.paginator = state.paginator;
+      this.loading = state.loading;
     });
   }
   ngOnInit(): void {
@@ -44,7 +42,6 @@ export class UserComponent implements OnInit {
   }
 
   onRemoveUser(id: number) {
-    this.sharingData.idUserEvent.emit(id);
     Swal.fire({
       title: 'Seguro que quiere eliminar?',
       text: 'Cuidado el usuario sera eliminado!',
